@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+Supplement Market
+{% endblock pagetitle %}
+
+{% block body %}
+
+<style>
+  body {
+    overflow-x: hidden;
+  }
+
+  .page-header {
+    animation: fadeDown 0.6s ease-in-out;
+  }
+
+  @keyframes fadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .supp-card {
+    border-radius: 1.2rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    height: 100%;
+  }
+
+  .supp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.2);
+  }
+
+  .supp-image {
+    max-height: 220px;
+    object-fit: contain;
+  }
+
+  .badge-supp {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border-radius: 999px;
+    padding: 0.25rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .badge-fert {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+    border-radius: 999px;
+    padding: 0.25rem 0.8rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .filter-btn.active {
+    background-color: #05380b !important;
+    color: #fff !important;
+  }
+</style>
+
+<div class="container py-4">
+
+  <!-- Header -->
+  <div class="row mb-4 text-center page-header">
+    <div class="col-lg-10 mx-auto">
+      <h1 class="display-5" style="font-weight: 600; color: rgb(4, 54, 4);">
+        🛒 Supplements & Fertilizers 🛒
+      </h1>
+      <p class="lead" style="font-weight: 500;color: black;">
+        Buy the right supplements & fertilizers for each plant disease at one place.
+      </p>
+    </div>
+  </div>
+
+  <!-- Search + Filter -->
+  <div class="row mb-4">
+    <div class="col-md-6 mb-2">
+      <input id="searchInput" type="text" class="form-control"
+             placeholder="Search by disease or product name...">
+    </div>
+
+    <div class="col-md-6 text-md-end text-start">
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-success filter-btn active" data-filter="all">
+          All
+        </button>
+        <button type="button" class="btn btn-outline-success filter-btn" data-filter="supplement">
+          Supplements (Diseased)
+        </button>
+        <button type="button" class="btn btn-outline-success filter-btn" data-filter="fertilizer">
+          Fertilizer (Healthy)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <div class="row g-4" id="supplementGrid">
+    {% for index in range(0, supplement_name | length) %}
+      {% if index != 4 %}
+
+        {# Decide type: fertilizer or supplement #}
+        {% if index==3 or index==5 or index==7 or index==11 or index==15
+              or index==18 or index==20 or index==23 or index==24
+              or index==25 or index==28 or index==38 %}
+          {% set type = 'fertilizer' %}
+        {% else %}
+          {% set type = 'supplement' %}
+        {% endif %}
+
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3 supp-item"
+             data-type="{{ type }}"
+             data-disease="{{ disease[index]|lower }}"
+             data-name="{{ supplement_name[index]|lower }}">
+
+          <div class="p-3 bg-white supp-card">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              {% if type == 'fertilizer' %}
+                <h5 class="mb-0">Fertilizer</h5>
+                <span class="badge-fert">Healthy</span>
+              {% else %}
+                <h5 class="mb-0">Supplement</h5>
+                <span class="badge-supp">Diseased</span>
+              {% endif %}
+            </div>
+
+            <hr class="mt-2 mb-3">
+
+            <div class="text-center mb-3">
+              <img src="{{ supplement_image[index] }}" alt="Product Image"
+                   width="200" height="250" class="supp-image img-fluid">
+            </div>
+
+            <div class="text-center">
+              <h6 class="mb-1">For: <span style="color:#05380b;">{{ disease[index] }}</span></h6>
+              <p class="mb-2" style="font-weight: 500;">{{ supplement_name[index] }}</p>
+
+              <a target="_blank" href="{{ buy[index] }}">
+                <button type="button" class="btn btn-success w-100"
+                        style="background-color: #05380b;">
+                  Buy Product
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Small JS for search + filter -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchInput = document.getElementById("searchInput");
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".supp-item");
+
+    function applyFilters() {
+      const searchText = searchInput.value.trim().toLowerCase();
+      const activeBtn = document.querySelector(".filter-btn.active");
+      const filterType = activeBtn ? activeBtn.getAttribute("data-filter") : "all";
+
+      items.forEach(item => {
+        const type = item.getAttribute("data-type");
+        const disease = item.getAttribute("data-disease");
+        const name = item.getAttribute("data-name");
+
+        let matchesFilter = (filterType === "all") || (type === filterType);
+        let matchesSearch =
+          disease.includes(searchText) || name.includes(searchText);
+
+        if (matchesFilter && matchesSearch) {
+          item.style.display = "";
+        } else {
+          item.style.display = "none";
+        }
+      });
+    }
+
+    // Search typing
+    searchInput.addEventListener("input", applyFilters);
+
+    // Filter buttons click
+    filterButtons.forEach(btn => {
+      btn.addEventListener("click", function () {
+        filterButtons.forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        applyFilters();
+      });
+    });
+  });
+</script>
+
+{% endblock body %}

@@ -1,0 +1,219 @@
+/* Moved from templates/css/style.css
+   Note: background image should be placed at /static/images/background.jpeg
+*/
+
+/* Background image helper (if used on any section) */
+.bg {
+    background-image: url("/static/images/background.jpeg");
+    min-height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+body {
+    background-color: #C1E59F;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 72px; /* space for fixed navbar */
+    animation: fadeInBody 0.7s ease-in-out;
+}
+
+@keyframes fadeInBody {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.rounded-lg {
+    border-radius: 1rem;
+}
+
+.file-upload input[type='file'] {
+    display: none;
+}
+
+label {
+    background-color: rgb(2, 46, 15);
+    color: white;
+    padding: 0.5rem 1.2rem;
+    font-family: sans-serif;
+    border-radius: 999px;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+label:hover {
+    transform: translateY(-1px) scale(1.02);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+    background-color: #035321;
+}
+
+#file-chosen {
+    margin-left: 0.3rem;
+    font-family: sans-serif;
+}
+
+/* NAVBAR STYLING */
+.custom-nav {
+    background: linear-gradient(90deg, #73AF6F, #4C8E52);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.navbar-nav .nav-link {
+    position: relative;
+    padding: 0.4rem 1rem;
+    margin: 0 0.25rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: color 0.25s ease, transform 0.25s ease;
+}
+
+.navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transform: translateX(-50%);
+    transition: width 0.25s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    transform: translateY(-1px);
+}
+
+.navbar-nav .nav-link:hover::after,
+.navbar-nav .nav-link.active::after {
+    width: 60%;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}
+
+/* FOOTER */
+.footer-basic {
+    padding: 40px 0 20px;
+    background-color: #042908;
+    color: #f1f3f5;
+    margin-top: 40px;
+    animation: slideUpFooter 0.8s ease-in-out;
+}
+
+@keyframes slideUpFooter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.footer-basic ul {
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+.footer-basic li {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.footer-basic ul a {
+    color: inherit;
+    text-decoration: none;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-basic ul a:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.social-icons a {
+    font-size: 1.35rem;
+    width: 44px;
+    height: 44px;
+    line-height: 44px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(6px);
+    opacity: 0.9;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease, border-color 0.25s ease;
+}
+
+.social-icons a:hover {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+    border-color: #fff;
+}
+
+.footer-basic .copyright {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 0;
+}
+
+/* Small animation utility class for sections inside body block */
+.fade-section {
+    animation: fadeSection 0.7s ease-in-out;
+}
+
+@keyframes fadeSection {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

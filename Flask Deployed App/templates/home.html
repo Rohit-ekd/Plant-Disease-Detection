@@ -1,0 +1,368 @@
+{% extends 'base.html' %}
+{% block pagetitle %}
+Plant Disease Detection
+{% endblock pagetitle %}
+{% block body %}
+
+<style>
+  /* Is page ke liye horizontal scroll band */
+  body {
+    overflow-x: hidden;
+  }
+
+  /* ========= RESPONSIVE VISIBILITY LOGIC ========= */
+
+  /* Default: assume desktop view */
+  .mobile {
+    display: none !important;
+  }
+
+  .laptop {
+    display: block !important;
+  }
+
+  /* Sirf mobile screens (<= 768px) */
+  @media (max-width: 768px) {
+    .mobile {
+      display: block !important;
+    }
+
+    .laptop {
+      display: none !important;
+    }
+  }
+
+  /* ========= ANIMATIONS & STYLES ========= */
+
+  /* Section heading animation */
+  .page-header {
+    animation: fadeDown 0.7s ease-in-out;
+  }
+
+  @keyframes fadeDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* AI Engine button wrapper */
+  .engine-btn-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .engine-btn-wrap .bttn-pill {
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .engine-btn-wrap .bttn-pill:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Cards styling */
+  .crop-card {
+    border-radius: 1.2rem;
+    overflow: hidden;
+    border: none;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, translate 0.25s ease;
+    background: #ffffff;
+  }
+
+  .crop-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 1rem;
+  }
+
+  .crop-card-body {
+    padding-top: 0.9rem;
+  }
+
+  .crop-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.22);
+  }
+
+  .crop-name {
+    font-weight: 600;
+    color: #043606;
+    margin-bottom: 0.1rem;
+  }
+
+  .crop-tag {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6c757d;
+  }
+
+  /* Grid animation */
+  .crop-row {
+    animation: fadeUp 0.7s ease-in-out;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile note box */
+  .mobile-note {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-note-inner {
+    background: #ffffff;
+    border-radius: 1.2rem;
+    padding: 2.5rem 1.8rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  }
+</style>
+
+<!-- ========= MOBILE VIEW (ONLY ON PHONE) ========= -->
+<div class="mobile p-4 mobile-note">
+  <div class="mobile-note-inner text-center">
+    <h1 class="display-6 mb-3" style="font-weight: 600; color:#b81414;">
+      <b>Note ✍🏻</b>
+    </h1>
+    <p class="lead mb-1" style="font-weight: 500; color: #212529;">
+      Please 🙏 open this site on a Laptop/PC 💻 screen for the best experience.
+    </p>
+    <p class="lead mb-0" style="font-weight: 500; color: #212529;">
+      Thank you 🤝
+    </p>
+  </div>
+</div>
+
+<!-- ========= LAPTOP / DESKTOP VIEW ========= -->
+<div class="container laptop py-4">
+
+  <!-- Header -->
+  <div class="row mb-4 text-center page-header">
+    <div class="col-lg-10 mx-auto">
+      <h1 class="display-5" style="padding-top: 1%; font-weight: 600; color: rgb(4, 54, 4);">
+        🍁 Plant Disease Detection 🍁
+      </h1>
+      <p class="lead mt-2" style="font-weight: 500; color: #212529;">
+        This AI Engine helps detect diseases from the following fruits and vegetables.
+      </p>
+    </div>
+  </div>
+
+  <!-- AI Engine Button -->
+  <div class="engine-btn-wrap">
+    <a href="/index">
+      <button class="bttn-pill bttn-lg btn-success">
+        <b style="color: black;">Open AI Engine</b>
+      </button>
+    </a>
+  </div>
+
+  <!-- CROPS GRID -->
+  <div class="row g-4 crop-row mt-3">
+    <!-- Apple -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://post.healthline.com/wp-content/uploads/2020/09/Do_Apples_Affect_Diabetes_and_Blood_Sugar_Levels-732x549-thumbnail-1-732x549.jpg"
+          alt="Apple">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Apple</p>
+          <div class="crop-tag">Fruit</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blueberry -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://www.supermarketperimeter.com/ext/resources/0430-blueberries.png?t=1588260305&width=1080"
+          alt="Blueberry">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Blueberry</p>
+          <div class="crop-tag">Berry</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cherry -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/slideshows/health_benefits_of_cherries_slideshow/1800x1200_health_benefits_of_cherries_slideshow.jpg"
+          alt="Cherry">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Cherry</p>
+          <div class="crop-tag">Fruit</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corn -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://www.birdsandblooms.com/wp-content/uploads/2025/02/GettyImages-1336478021.jpg"
+          alt="Corn">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Corn</p>
+          <div class="crop-tag">Crop</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grape -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://i.ndtvimg.com/i/2015-09/grapes_625x350_61443376353.jpg"
+          alt="Grape">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Grape</p>
+          <div class="crop-tag">Fruit</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orange -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://www.health.com/thmb/OZgW2YQtFb9qJ3PbySNei3YdgPw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Health-Stocksy_txp5e95690asrw300_Medium_934585-e870449543284eed8aa4be52fc09a4ed.jpg"
+          alt="Orange">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Orange</p>
+          <div class="crop-tag">Citrus</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Peach -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/the_health_benefits_of_peaches_slideshow/thinkstock_rf_peaches.jpg?resize=650px:*"
+          alt="Peach">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Peach</p>
+          <div class="crop-tag">Fruit</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pepper Bell -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbz_JuHfzr1YEvn6Ls_PWVcXiRt-zBnyXZ8JBmk17dB_4BQDzv4vVZB2o-ZAtJ59tgSzw&usqp=CAU"
+          alt="Pepper Bell">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Pepper Bell</p>
+          <div class="crop-tag">Vegetable</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Potato -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://m.economictimes.com/thumb/height-450,width-600,imgsize-111140,msid-72862126/potato-getty.jpg"
+          alt="Potato">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Potato</p>
+          <div class="crop-tag">Root</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Raspberry -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://i0.wp.com/cdn-prod.medicalnewstoday.com/content/images/articles/326/326272/raspberries-with-ketones-in-a-bowl.jpg?w=1155&h=1541"
+          alt="Raspberry">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Raspberry</p>
+          <div class="crop-tag">Berry</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soybean -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://m.economictimes.com/thumb/msid-66988154,width-1200,height-900,resizemode-4,imgsize-211276/soyabean-agencies.jpg"
+          alt="Soybean">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Soybean</p>
+          <div class="crop-tag">Crop</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Squash -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://post.healthline.com/wp-content/uploads/2020/08/squash-fruit-or-vegetable-732x549-thumbnail-732x549.jpg"
+          alt="Squash">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Squash</p>
+          <div class="crop-tag">Vegetable</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Strawberry -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://images.indianexpress.com/2020/02/strawberry-1200.jpg"
+          alt="Strawberry">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Strawberry</p>
+          <div class="crop-tag">Berry</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tomato -->
+    <div class="col-6 col-md-3">
+      <div class="p-3 crop-card h-100">
+        <img
+          src="https://images-prod.healthline.com/hlcmsresource/images/AN_images/tomatoes-1296x728-feature.jpg"
+          alt="Tomato">
+        <div class="crop-card-body text-center">
+          <p class="crop-name">Tomato</p>
+          <div class="crop-tag">Vegetable</div>
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- row end -->
+
+</div> <!-- container end -->
+
+{% endblock body %}

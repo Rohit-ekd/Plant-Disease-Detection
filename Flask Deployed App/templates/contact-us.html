@@ -1,0 +1,130 @@
+{% extends 'base.html' %} {% block pagetitle %} Contact Us {% endblock pagetitle
+%} {% block body %}
+
+<div class="row mb-5 text-center text-white laptop">
+  <div class="col-lg-10 mx-auto">
+    <h1
+      class="display-4"
+      style="padding-top: 2%; font-weight: 400; color: rgb(4, 54, 4)"
+    >
+      <b>📞Contact-Us📞</b>
+    </h1>
+    <p class="lead" style="font-weight: 500; color: black">
+      For Any Queries & Suggestions Contact Us. We Are Happy To Help.
+    </p>
+  </div>
+</div>
+
+<div class="row p-3">
+  <div class="col">
+    <div class="p-5 bg-white shadow rounded-lg" style="height: 95%">
+      <center>
+        <h3>Rohit Varshney</h3>
+        <p class="lead" style="font-weight: 350">
+          Hi! I’m Rohit Varshney, a passionate Full-Stack Web Developer who
+          loves creating elegant, user-friendly solutions. I’m currently
+          enhancing my skills in Cloud Computing to build and deploy scalable,
+          cloud-native applications. Always curious, always learning!
+        </p>
+      </center>
+
+      <div class="container" id="send">
+        <form id="contactForm" class="cards">
+          <h6 class="t-head textCenter">
+            Send Me Message Feel Free To Contact!
+          </h6>
+          <div class="mb-3 mt-3">
+            <input
+              type="text"
+              id="name"
+              class="form-control"
+              placeholder="Enter your name"
+              required
+            />
+          </div>
+
+          <div class="mb-3 mt-3">
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="Enter your email"
+              required
+            />
+          </div>
+
+          <div class="mb-3 mt-3">
+            <textarea
+              id="message"
+              placeholder="Enter your message"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-outline-success" id="submit">
+            Submit
+          </button>
+          <p id="statusMessage"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import {
+    getDatabase,
+    ref,
+    set,
+  } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-database.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyAAj2XXo2eZaycpLCyws6Bo0ci7B2WO22M",
+    authDomain: "getinfo-b1994.firebaseapp.com",
+    projectId: "getinfo-b1994",
+    storageBucket: "getinfo-b1994.firebasestorage.app",
+    messagingSenderId: "1055712471678",
+    appId: "1:1055712471678:web:2d07b350a4799982cb462f",
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const statusMsg = document.getElementById("statusMessage");
+      statusMsg.style.color = ""; // Reset color
+
+      if (!name || !email || !message) {
+        alert("All fields are required!");
+        return;
+      }
+
+      set(ref(database, "user/" + name), {
+        username: name,
+        email: email,
+        message: message,
+      })
+        .then(() => {
+          statusMsg.textContent = "Your message has been submitted!";
+          statusMsg.style.color = "green";
+          document.getElementById("contactForm").reset();
+        })
+        .catch((error) => {
+          console.error("Error writing to database: ", error);
+          statusMsg.textContent = "Error submitting your message.";
+          statusMsg.style.color = "red";
+        });
+    });
+</script>
+
+{% endblock body %}
