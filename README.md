@@ -38,18 +38,25 @@ python app.py
 
 ## ⭐Snippet of Web App :
 #### Main page
-<img src = "demo_images/1.png" > <br>
+<img width="594" height="776" alt="1" src="https://github.com/user-attachments/assets/d7663d20-d010-42ef-a47d-842a862303bc" />
+
 #### AI Engine 
-<img src = "demo_images/2.png"> <br>
+<img width="557" height="429" alt="2" src="https://github.com/user-attachments/assets/f6f72dc9-2f7e-4225-a45a-23783916bdbe" />
+
 #### Results Page 
-<img src = "demo_images/3.png"> <br>
+<img width="571" height="678" alt="3" src="https://github.com/user-attachments/assets/c0841df8-84e7-42e7-8cc8-f2a13f25011c" />
+
 #### Supplements/Fertilizer  Store
-<img src = "demo_images/4.JPG"> <br>
+
+<img width="570" height="901" alt="4" src="https://github.com/user-attachments/assets/a408c1a9-4cb8-4df8-8b85-83ac9b4041fa" />
+
 #### Contact Us 
-<img src = "demo_images/5.png"> <br><br>
+
+<img width="1850" height="841" alt="5" src="https://github.com/user-attachments/assets/3815c8c6-1123-4003-ae12-efe945b61746" />
 
 
 
 
+#### Video demo
 https://github.com/user-attachments/assets/9c98f2d1-af78-47df-8666-98a3ed845692
 
